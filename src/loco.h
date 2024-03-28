@@ -170,7 +170,7 @@ static const char *locos[] = { // todo try not to use static, we are running out
         "HXN3",
         "HXN5",
         "HXN3B",
-        "",
+        "HXN5B",
         "",
         "",
         "",
@@ -239,7 +239,7 @@ static const char *locos[] = { // todo try not to use static, we are running out
         "天梭",
         // HXD
         "DJ4和谐",
-        "",
+        "KTT",
         "HXD1",
         "HXD2",
         "HXD3",
@@ -258,11 +258,11 @@ static const char *locos[] = { // todo try not to use static, we are running out
         "",
         "FXD1J",
         "FXD3J",
-        "", // FXD3J鼓？
+        "KZ25TA", 
         "",
-        "",
-        "",
-        "",
+        "KZ25TB",
+        "HXD1D-J",
+        "FXN3-J",
         "",
         "",
         "",
@@ -320,9 +320,13 @@ static const char *locos[] = { // todo try not to use static, we are running out
         "CRH380B",
         "CRH380C",
         "CRH380D",
-        "",
+        "CRH6A",
         "CR400AF",
-        "CR400BF"
+        "CR400BF",
+        "",
+        "",
+        "CRH2E",
+        "CRH6F"
 };
 #define PAGER_RECEIVE_LOCO_H
 
