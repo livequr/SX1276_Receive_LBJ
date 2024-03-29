@@ -71,6 +71,7 @@ extern const char *ntpServer2;
 
 extern struct tm time_info;
 
+// you'll have to change this!
 #define WIFI_SSID       "MI CC9 Pro"
 #define WIFI_PASSWORD   "11223344"
 #define NETWORK_TIMEOUT 1800000 // 30 minutes
@@ -89,6 +90,7 @@ extern uint64_t prb_timer;
 extern uint32_t prb_count;
 extern float ppm;
 extern bool freq_correction;
+extern bool telnet_online;
 
 bool isConnected();
 

@@ -319,7 +319,7 @@ int16_t SX1278::setGain(uint8_t gain) {
 }
 
 int16_t SX1278::getGain() {
-  int16_t gain = (int16_t)this->mod->SPIgetRegValue(RADIOLIB_SX127X_REG_LNA);
+  int16_t gain = this->mod->SPIgetRegValue(RADIOLIB_SX127X_REG_LNA);
   return (gain);
 }
 
