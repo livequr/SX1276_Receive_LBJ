@@ -138,6 +138,7 @@
 
 #define HAS_SDCARD
 #define HAS_DISPLAY
+#define FONT_12_GB2312 u8g2_font_wqy12_t_gb2312
 // #define HAS_RTC // soldered an external DS3231 module.
 
 #elif defined(LILYGO_T3_V2_0)

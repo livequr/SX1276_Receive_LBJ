@@ -85,7 +85,7 @@ void initBoard() {
         u8g2->setFontDirection(0);
         u8g2->firstPage();
         if (voltage < 3.10) {
-            u8g2->setFont(u8g2_font_wqy12_t_gb2312a);
+            u8g2->setFont(FONT_12_GB2312);
             u8g2->drawUTF8(24, 32, "低电压");
             u8g2->sendBuffer();
             ESP.deepSleep(999999999 * 999999999U);
@@ -113,7 +113,7 @@ void initBoard() {
 
 #ifdef HAS_SDCARD
     if (u8g2) {
-        u8g2->setFont(u8g2_font_wqy12_t_gb2312a);
+        u8g2->setFont(FONT_12_GB2312);
     }
     pinMode(SDCARD_MISO, INPUT_PULLUP);
     SDSPI.begin(SDCARD_SCLK, SDCARD_MISO, SDCARD_MOSI, SDCARD_CS);

@@ -513,7 +513,7 @@ int16_t readDataLBJ(struct PagerClient::pocsag_data *p, struct lbj_data *l) {
                     for (size_t v = 14; v < 17; v++, c++) {
                         int8_t ch = hexToChar(l->info2_hex[v], l->info2_hex[v + 1]);
                         ++v;
-                        if ((uint8_t )ch >= 0xA0 || ch == 0x20 || ch >= 0x2E && ch <= 0x39)
+                        if ((uint8_t )ch >= 0xA0 || ch == 0x20 || ch >= 0x2D && ch <= 0x7E && ch != 0x60)
                             l->route[c] = ch;
                     }
                 }
@@ -522,7 +522,7 @@ int16_t readDataLBJ(struct PagerClient::pocsag_data *p, struct lbj_data *l) {
                     for (size_t v = 18; v < 21; v++, c++) {
                         int8_t ch = hexToChar(l->info2_hex[v], l->info2_hex[v + 1]);
                         ++v;
-                        if ((uint8_t )ch >= 0xA0 || ch == 0x20 || ch >= 0x2E && ch <= 0x39)
+                        if ((uint8_t )ch >= 0xA0 || ch == 0x20 || ch >= 0x2D && ch <= 0x7E && ch != 0x60)
                             l->route[c] = ch;
                     }
                 }
@@ -531,7 +531,7 @@ int16_t readDataLBJ(struct PagerClient::pocsag_data *p, struct lbj_data *l) {
                     for (size_t v = 22; v < 29; v++, c++) {
                         int8_t ch = hexToChar(l->info2_hex[v], l->info2_hex[v + 1]);
                         ++v;
-                        if ((uint8_t )ch >= 0xA0 || ch == 0x20 || ch >= 0x2E && ch <= 0x39)
+                        if ((uint8_t )ch >= 0xA0 || ch == 0x20 || ch >= 0x2D && ch <= 0x7E && ch != 0x60)
                             l->route[c] = ch;
                     }
                 }

@@ -228,7 +228,7 @@ void showSTR(const String &str) {
     u8g2->setDrawColor(0);
     u8g2->drawBox(0, 8, 128, 48);
     u8g2->setDrawColor(1);
-    // u8g2->setFont(u8g2_font_wqy12_t_gb2312a);
+    // u8g2->setFont(FONT_12_GB2312);
     u8g2->setFont(u8g2_font_squeezed_b7_tr);
     pword(str.c_str(), 0, 19);
     u8g2->sendBuffer();
@@ -267,7 +267,7 @@ void showLBJ1(const struct lbj_data &l) {
     u8g2->setDrawColor(0);
     u8g2->drawBox(0, 8, 128, 48);
     u8g2->setDrawColor(1);
-    u8g2->setFont(u8g2_font_wqy12_t_gb2312a);
+    u8g2->setFont(FONT_12_GB2312);
     // line 1
     sprintf(buffer, "车:%s%s", l.lbj_class, l.train);
     u8g2->drawUTF8(0, 19, buffer);
@@ -530,7 +530,7 @@ void setup() {
 
     if (u8g2) {
         showInitComp();
-        u8g2->setFont(u8g2_font_wqy12_t_gb2312a);
+        u8g2->setFont(FONT_12_GB2312);
         u8g2->setCursor(0, 52);
         u8g2->println("Initializing...");
         u8g2->sendBuffer();
