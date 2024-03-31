@@ -80,6 +80,7 @@ bool is_startline = true;
 bool exec_init_f80 = false;
 // bool agc_triggered = false;
 bool low_volt_warned = false;
+bool oled_off = false;
 bool give_tel_rssi = false;
 bool give_tel_gain = false;
 bool tel_set_ppm = false;
@@ -767,15 +768,25 @@ void loop() {
         }
         exec_init_f80 = true;
     }
-
+#ifdef HAS_DISPLAY
     // update information on screen.
     if (screen_timer == 0) {
         screen_timer = millis64();
     } else if (millis64() - screen_timer > 3000) { // Set to 3000 to reduce interference.
-        updateInfo();
+#ifdef HAS_OLED_TIMEOUT
+        if (!oled_off)
+#endif
+            updateInfo();
         screen_timer = millis64();
     }
-
+#ifdef HAS_OLED_TIMEOUT
+    if (millis64() - timer4 >= OLED_TIMEOUT && timer4 != 0 && !oled_off) {
+        u8g2->clearBuffer();
+        oled_off = true;
+        u8g2->setPowerSave(true);
+    }
+#endif
+#endif
     // if (millis64()%5000 == 0){
     //     sd1.append("[D] 当前运行时间 %lu ms.\n",millis64());
     //     sd1.append("[D] 测试输出：\n");
@@ -1179,6 +1190,14 @@ void formatDataTask(void *pVoid) {
 #ifdef HAS_DISPLAY
     fd_state = TASK_RUNNING_SCREEN;
     if (u8g2) {
+#ifdef HAS_OLED_TIMEOUT
+        if (oled_off) {
+            oled_off = false;
+            u8g2->setPowerSave(false);
+            u8g2->clearBuffer();
+            updateInfo();
+        }
+#endif
         if (db->lbjData.type == 0)
             showLBJ0(db->lbjData);
         else if (db->lbjData.type == 1) {
@@ -1208,6 +1227,14 @@ void simpleFormatTask() { // only output initially phrased data in case of memor
         db->str += String(i.addr) + "/" + String(i.func) + ":" + i.str + "\n ";
     }
     // pword(db->str.c_str(),20,50);
+#ifdef HAS_OLED_TIMEOUT
+    if (oled_off) {
+        oled_off = false;
+        u8g2->setPowerSave(false);
+        u8g2->clearBuffer();
+        updateInfo();
+    }
+#endif
     showSTR(db->str);
 }
 // END OF FILE.
