@@ -670,6 +670,8 @@ void checkNetwork() {
         net_timer = millis64();
 
     if (!isConnected() && millis64() - net_timer > NETWORK_TIMEOUT && !no_wifi) { // 暂定解决方案：超30分钟断wifi
+        telnet.stop();
+        telnet_online = false;
         WiFi.disconnect();
         WiFiClass::mode(WIFI_OFF);
         Serial.println("WIFI off after 30 minutes without connection.");
