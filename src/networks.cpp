@@ -324,6 +324,7 @@ void setupTelnet() {
     Serial.print("[Telnet] ");
     if (telnet.begin(port)) {
         Serial.println("running");
+        telnet_online = true;
     } else {
         Serial.println("error.");
     }
@@ -503,7 +504,7 @@ int16_t readDataLBJ(struct PagerClient::pocsag_data *p, struct lbj_data *l) {
                     for (size_t v = 0; v < 3; v++, c++) {
                         int8_t ch = hexToChar(l->info2_hex[v], l->info2_hex[v + 1]);
                         ++v;
-                        if (ch > 0x1F && ch < 0x7F && ch != 0x22)
+                        if (ch > 0x1F && ch < 0x7F && ch != 0x22 && ch != 0x2C)
                             l->lbj_class[c] = ch;
                     }
                 }

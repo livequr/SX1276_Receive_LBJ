@@ -156,8 +156,8 @@ static const char *locos[] = { // todo try not to use static, we are running out
         "NZJ1",
         "NZJ2",
         "东风4DJ",
-        "新曙光",
-        "神州",
+        "新曙光", // NDJ1
+        "神州", // NDJ2
         "NJ2",
         "东风7G",
         "NDJ3",
@@ -252,10 +252,10 @@ static const char *locos[] = { // todo try not to use static, we are running out
         "HXD1D",
         "HXD2D",
         "HXD3D",
-        "FXD1B",// FXD1B
-        "FXD2B",// FXD2B
-        "FXD1",// FXD1
-        "FXD3",// FXD3
+        "FXD1B",
+        "FXD2B",
+        "FXD1",
+        "FXD3",
         "FXD1-J",
         "FXD3-J",
         "KZ25TA", 
