@@ -67,14 +67,14 @@ uint64_t car_timer = 0;
 uint32_t prb_count = 0;
 uint32_t car_count = 0;
 uint32_t ip_last = 0;
-float ppm = 6;
+float ppm = INITIAL_PPM;
 
 inline float actualFreq(float bias) {
     actual_frequency = (float) ((TARGET_FREQ * bias) / 1e6 + TARGET_FREQ);
     return actual_frequency;
 }
 
-bool freq_correction = true;
+bool freq_correction = AFC_ENABLE;
 // bool bandwidth_altered = false;
 bool is_startline = true;
 bool exec_init_f80 = false;

@@ -143,6 +143,9 @@
 // #define HAS_OLED_TIMEOUT // Enable OLED sleep feature, oled turn off after OLED_TIMEOUT seconds without rx.
 // #define HAS_RTC // soldered an external DS3231 module.
 
+#define INITIAL_PPM                 6
+#define AFC_ENABLE                  true
+
 #elif defined(LILYGO_T3_V2_0)
 #define I2C_SDA                     21
 #define I2C_SCL                     22

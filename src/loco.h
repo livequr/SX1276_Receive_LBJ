@@ -324,7 +324,7 @@ static const char *locos[] = { // todo try not to use static, we are running out
         "CR400AF",
         "CR400BF",
         "CR300AF",
-        "",
+        "CR300BF",
         "CRH2E",
         "CRH6F",
         "",
