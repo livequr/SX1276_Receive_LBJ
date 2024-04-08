@@ -1053,6 +1053,11 @@ void handlePreamble() {
     }
 }
 
+void getCoreFreq(void *pVoid) {
+    Serial.printf("Core %d Frequency %d MHz\n", xPortGetCoreID(), ets_get_cpu_frequency());
+    vTaskDelete(nullptr);
+}
+
 void handleSerialInput() {
     if (Serial.available()) {
         String in = Serial.readStringUntil('\r');
@@ -1131,6 +1136,10 @@ void handleSerialInput() {
             Serial.printf("$ RSSI %3.2f dBm.\n", radio.getRSSI(false, true));
         } else if (in == "gain") {
             Serial.printf("$ Gain Pos %d \n", radio.getGain());
+        } else if (in == "cpu") {
+            xTaskCreatePinnedToCore(getCoreFreq, "get_freq", 2048, nullptr,
+                                    1, nullptr, 0);
+            Serial.printf("Core %d Frequency %d MHz\n", xPortGetCoreID(), ets_get_cpu_frequency());
         }
     }
 }

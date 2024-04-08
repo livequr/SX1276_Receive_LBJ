@@ -52,8 +52,15 @@ void changeCpuFreq(uint32_t freq_mhz) {
      * The WiFi restart workaround currently using while wifi disconnected may stuck the main loop from 20ms up
      * to 1000ms, which needs further improvements. */
     if (isConnected() || no_wifi) {
-        if (ets_get_cpu_frequency() != freq_mhz)
+        if (ets_get_cpu_frequency() != freq_mhz) {
             setCpuFrequencyMhz(freq_mhz);
+            if (no_wifi) {
+                auto timer = millis64();
+                WiFiClass::mode(WIFI_OFF);
+                WiFi.setSleep(true);
+                // Serial.printf("[D] Switch to 80MHz, WIFI OFF [%llu] \n", millis64() - timer);
+            }
+        }
     } else {
         // Serial.println("[D] CALL WIFI OFF");
         auto timer = millis64();
