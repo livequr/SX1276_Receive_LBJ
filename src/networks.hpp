@@ -72,9 +72,9 @@ extern const char *ntpServer2;
 extern struct tm time_info;
 
 // you'll have to change this!
-#define WIFI_SSID       "MI CC9 Pro"
-#define WIFI_PASSWORD   "11223344"
-#define NETWORK_TIMEOUT 1800000 // 30 minutes
+#define WIFI_SSID       "Qur Mate30 Pro"
+#define WIFI_PASSWORD   "quzhi1213"
+#define NETWORK_TIMEOUT 300000 // Change to 5min Qur
 
 extern ESPTelnet telnet;
 extern IPAddress ip;

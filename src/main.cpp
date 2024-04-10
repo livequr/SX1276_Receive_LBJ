@@ -156,13 +156,16 @@ void showInitComp() {
     String ipa = WiFi.localIP().toString();
     u8g2->drawStr(0, 64, ipa.c_str());
     if (have_sd && WiFiClass::status() == WL_CONNECTED)
-        u8g2->drawStr(89, 64, "D");
+        u8g2->drawStr(89, 64, "0");
     else if (have_sd)
-        u8g2->drawStr(89, 64, "L");
+        u8g2->drawStr(89, 64, "-");
     else if (WiFiClass::status() == WL_CONNECTED)
-        u8g2->drawStr(89, 64, "N");
+        u8g2->drawStr(89, 64, "+");
     char buffer[32];
-    sprintf(buffer, "%2d", ets_get_cpu_frequency() / 10);
+    if ((ets_get_cpu_frequency()/10) > 15)
+        sprintf(buffer,"H");
+    else
+        sprintf(buffer,"L");
     u8g2->drawStr(96, 64, buffer);
     sprintf(buffer, "%1.2f", battery.readVoltage() * 2);
     u8g2->drawStr(108, 64, buffer);
@@ -207,12 +210,15 @@ void updateInfo() {
     sprintf(buffer, "%.1f", getBias(actual_frequency));
     u8g2->drawStr(73, 64, buffer);
     if (sd1.status() && WiFiClass::status() == WL_CONNECTED)
-        u8g2->drawStr(89, 64, "D");
+        u8g2->drawStr(89, 64, "0");
     else if (sd1.status())
-        u8g2->drawStr(89, 64, "L");
+        u8g2->drawStr(89, 64, "-");
     else if (WiFiClass::status() == WL_CONNECTED)
-        u8g2->drawStr(89, 64, "N");
-    sprintf(buffer, "%2d", ets_get_cpu_frequency() / 10);
+        u8g2->drawStr(89, 64, "+");
+    if ((ets_get_cpu_frequency()/10) > 15)
+        sprintf(buffer,"H");
+    else
+        sprintf(buffer,"L");
     u8g2->drawStr(96, 64, buffer);
     voltage = battery.readVoltage() * 2;
     sprintf(buffer, "%1.2f", voltage); // todo: Implement average voltage reading.
@@ -265,17 +271,18 @@ void showLBJ0(const struct lbj_data &l) {
 
 void showLBJ1(const struct lbj_data &l) {
     char buffer[128];
+    int loco_num;
     u8g2->setDrawColor(0);
     u8g2->drawBox(0, 8, 128, 48);
     u8g2->setDrawColor(1);
     u8g2->setFont(FONT_12_GB2312);
     // line 1
-    sprintf(buffer, "车:%s%s", l.lbj_class, l.train);
+    sprintf(buffer, "%s%s", l.lbj_class, l.train);
     u8g2->drawUTF8(0, 19, buffer);
-    sprintf(buffer, "速:%sKM/H", l.speed);
+    sprintf(buffer, "%sKM/H", l.speed);
     u8g2->drawUTF8(68, 19, buffer);
     // line 2
-    sprintf(buffer, "线:%s", l.route_utf8);
+    sprintf(buffer, "%s", l.route_utf8);
     u8g2->drawUTF8(0, 31, buffer);
     u8g2->drawBox(67, 21, 13, 12);
     u8g2->setDrawColor(0);
@@ -291,10 +298,13 @@ void showLBJ1(const struct lbj_data &l) {
     sprintf(buffer, "%sK", l.position);
     u8g2->drawUTF8(86, 31, buffer);
     // line 3
-    sprintf(buffer, "号:%s", l.loco);
+    loco_num = loco_num = (l.loco[3]-48)*10000+(l.loco[4]-48)*1000+(l.loco[5]-48)*100+(l.loco[6]-48)*10+(l.loco[7]-48);
+    sprintf(buffer, "%s-%04d", l.loco_type.c_str(), loco_num);
     u8g2->drawUTF8(0, 43, buffer);
+    /*
     if (l.loco_type.length())
         u8g2->drawUTF8(72, 43, l.loco_type.c_str());
+    */
     // line 4
     String pos;
     if (l.pos_lat_deg[1] && l.pos_lat_min[1]) {
