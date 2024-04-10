@@ -299,7 +299,10 @@ void showLBJ1(const struct lbj_data &l) {
     u8g2->drawUTF8(86, 31, buffer);
     // line 3
     loco_num = loco_num = (l.loco[3]-48)*10000+(l.loco[4]-48)*1000+(l.loco[5]-48)*100+(l.loco[6]-48)*10+(l.loco[7]-48);
-    sprintf(buffer, "%s-%04d", l.loco_type.c_str(), loco_num);
+    if (loco_num != 288672)
+        sprintf(buffer, "%s-%04d", l.loco_type.c_str(), loco_num);
+    else
+        sprintf(buffer, "%s", "<NUL>");
     u8g2->drawUTF8(0, 43, buffer);
     /*
     if (l.loco_type.length())

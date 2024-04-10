@@ -918,7 +918,7 @@ void printDataTelnet(PagerClient::pocsag_data *p, const struct lbj_data &l, cons
                 telPrintf(true, "[LBJ] 方向: 下行  ");
             else
                 telPrintf(true, "[LBJ] 方向: %3d  ", l.direction);
-            telPrintf(true, "车次: %s  速度: %s KM/H  公里标: %s KM  ", l.train, l.speed, l.position);
+            telPrintf(true, "车次: %s  速度: %s KM/H  公里标: %s KM  \n", l.train, l.speed, l.position);
             telPrintf(true, "----------------------------------------\n");
             break;
         }
@@ -932,7 +932,10 @@ void printDataTelnet(PagerClient::pocsag_data *p, const struct lbj_data &l, cons
                 telPrintf(true, "[LBJ] 方向: %4d     ", l.direction);
             telPrintf(true, "车次: %s%s   速度: %s KM/H  公里标: %s KM \n", l.lbj_class, l.train, l.speed, l.position);
             loco_num = (l.loco[3]-48)*10000+(l.loco[4]-48)*1000+(l.loco[5]-48)*100+(l.loco[6]-48)*10+(l.loco[7]-48);
-            telPrintf(true, "[LBJ] 线路: %s 机车：%s-%04d  ", l.route_utf8, l.loco_type.c_str(), loco_num);
+            if (loco_num != 288672)
+                telPrintf(true, "[LBJ] 线路: %s 机车：%s-%04d  ", l.route_utf8, l.loco_type.c_str(), loco_num);
+            else
+                telPrintf(true, "[LBJ] 线路: %s 机车：%s  ", l.route_utf8, "<NUL>");
             if (l.pos_lat_deg[1] && l.pos_lat_min[1])
                 telPrintf(true, "位置: %s°%2s′ ", l.pos_lat_deg, l.pos_lat_min);
             else
