@@ -164,7 +164,7 @@ void onTelnetConnect(String ip) {
     Serial.print(ip);
     Serial.println(" connected");
 
-    telnet.println("===[LBJ Receiver Powered by Qur]===");
+    telnet.println("==[LBJ Receiver Powered by Qur]==");
     getLocalTime(&time_info, 10);
     char timeStr[20];
     sprintf(timeStr, "%d-%02d-%02d %02d:%02d:%02d", time_info.tm_year + 1900, time_info.tm_mon + 1, time_info.tm_mday,
@@ -173,7 +173,7 @@ void onTelnetConnect(String ip) {
     telnet.print(timeStr);
     telnet.println("\n\rWelcome " + telnet.getIP());
     telnet.println("(Use ^] + q  to disconnect.)");
-    telnet.println("=======================================");
+    telnet.println("================================");
     telnet.print("< ");
 }
 
@@ -911,7 +911,7 @@ void printDataTelnet(PagerClient::pocsag_data *p, const struct lbj_data &l, cons
     String train_direction;
     switch (l.type) {
         case 0: {
-            telPrintf(true, "----------------------------------------\n");
+            
             if (l.direction == FUNCTION_UP)
                 //telPrintf(true, "[LBJ] 方向: 上行  ");
                 train_direction = "-";
@@ -922,11 +922,11 @@ void printDataTelnet(PagerClient::pocsag_data *p, const struct lbj_data &l, cons
                 //telPrintf(true, "[LBJ] 方向: %3d  ", l.direction);
                 train_direction = "?";
             telPrintf(true, "%s  %s KM/H  %s%s KM  \n", l.train, l.speed, train_direction, l.position);
-            telPrintf(true, "----------------------------------------\n");
+            telPrintf(true, "----------------------------\n");
             break;
         }
         case 1: {
-            telPrintf(true, "----------------------------------------\n");
+            
             if (l.direction == FUNCTION_UP)
                 //telPrintf(true, "[LBJ] 方向: 上行     ");
                 train_direction = "-";
@@ -936,14 +936,14 @@ void printDataTelnet(PagerClient::pocsag_data *p, const struct lbj_data &l, cons
             else
                 //telPrintf(true, "[LBJ] 方向: %4d     ", l.direction);
                 train_direction = "?";
-            telPrintf(true, "%s%s  %s KM/H  %s KM \n", l.lbj_class, l.train, l.speed, train_direction, l.position);
+            telPrintf(true, "%s%s  %s KM/H  %s%s KM \n", l.lbj_class, l.train, l.speed, train_direction, l.position);
             loco_num = (l.loco[3]-48)*10000+(l.loco[4]-48)*1000+(l.loco[5]-48)*100+(l.loco[6]-48)*10+(l.loco[7]-48);
             if (loco_num != 288672)
                 //telPrintf(true, "[LBJ] 线路: %s 机车：%s-%04d  ", l.route_utf8, l.loco_type.c_str(), loco_num);
-                telPrintf(true, "%s  %s-%04d  ", l.route_utf8, l.loco_type.c_str(), loco_num);
+                telPrintf(true, "%s  %s-%04d\n", l.route_utf8, l.loco_type.c_str(), loco_num);
             else
                 //telPrintf(true, "[LBJ] 线路: %s 机车：%s  ", l.route_utf8, "<NUL>");
-                telPrintf(true, "%s  %s  ", l.route_utf8, "<NUL>");
+                telPrintf(true, "%s  %s\n", l.route_utf8, "<NUL>");
             /*
             if (l.pos_lat_deg[1] && l.pos_lat_min[1])
                 telPrintf(true, "位置: %s°%2s′ ", l.pos_lat_deg, l.pos_lat_min);
@@ -966,7 +966,7 @@ void printDataTelnet(PagerClient::pocsag_data *p, const struct lbj_data &l, cons
                 telPrintf(true, "[E:%02d/%02d/%zu]\n", p[i].errs_uncorrected, p[i].errs_total, (p[i].len / 5) * 32);
             }
             */
-            telPrintf(true, "----------------------------------------\n");
+            telPrintf(true, "----------------------------\n");
             break;
         }
         case 2: {
